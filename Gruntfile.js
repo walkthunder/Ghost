@@ -674,7 +674,7 @@ var config = require('./core/server/config'),
         // `bower` does have some quirks, such as not running as root. If you have problems please try running
         // `grunt init --verbose` to see if there are any errors.
         grunt.registerTask('init', 'Prepare the project for development',
-            ['update_submodules:pinned', 'subgrunt:init', 'clean:tmp', 'default']);
+            ['subgrunt:init', 'clean:tmp', 'default']);
 
         // ### Build assets
         // `grunt build` - will build client assets (without updating the submodule)
@@ -761,7 +761,7 @@ var config = require('./core/server/config'),
                     }]
                 });
 
-                grunt.task.run(['update_submodules:pinned', 'subgrunt:init', 'clean:built', 'clean:tmp', 'prod', 'clean:release', 'copy:admin_html', 'copy:release', 'compress:release']);
+                grunt.task.run(['subgrunt:init', 'clean:built', 'clean:tmp', 'prod', 'clean:release', 'copy:admin_html', 'copy:release', 'compress:release']);
             }
         );
     };
