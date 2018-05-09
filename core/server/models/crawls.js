@@ -400,31 +400,12 @@ Crawl = ghostBookshelf.Model.extend({
     defaultColumnsToFetch: function defaultColumnsToFetch() {
         return ['id', 'published_at', 'slug', 'author_id'];
     },
-    /**
-     * If the `formats` option is not used, we return `html` be default.
-     * Otherwise we return what is requested e.g. `?formats=mobiledoc,plaintext`
-     */
-    formatsToJSON: function formatsToJSON(attrs, options) {
-        var defaultFormats = ['html'],
-            formatsToKeep = options.formats || defaultFormats;
-
-        // Iterate over all known formats, and if they are not in the keep list, remove them
-        _.each(Post.allowedFormats, function (format) {
-            if (formatsToKeep.indexOf(format) === -1) {
-                delete attrs[format];
-            }
-        });
-
-        return attrs;
-    },
 
     toJSON: function toJSON(unfilteredOptions) {
-        var options = Post.filterOptions(unfilteredOptions, 'toJSON'),
+        var options = Crawl.filterOptions(unfilteredOptions, 'toJSON'),
             attrs = ghostBookshelf.Model.prototype.toJSON.call(this, options),
             oldPostId = attrs.amp,
             commentId;
-
-        attrs = this.formatsToJSON(attrs, options);
 
         // If the current column settings allow it...
         if (!options.columns || (options.columns && options.columns.indexOf('primary_tag') > -1)) {
@@ -475,7 +456,6 @@ Crawl = ghostBookshelf.Model.extend({
         return options.context && options.context.public ? 'page:false' : 'page:false+status:published';
     }
 }, {
-    allowedFormats: ['mobiledoc', 'html', 'plaintext', 'amp'],
 
     orderDefaultOptions: function orderDefaultOptions() {
         return {

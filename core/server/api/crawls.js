@@ -52,7 +52,7 @@ crawls = {
         // Push all of our tasks into a `tasks` array in the correct order
         tasks = [
             localUtils.validate(docName, {opts: permittedOptions}),
-            localUtils.convertOptions(allowedIncludes, models.Post.allowedFormats),
+            localUtils.convertOptions(allowedIncludes, models.Crawls.allowedFormats),
             localUtils.handlePublicPermissions(docName, 'browse', unsafeAttrs),
             modelQuery
         ];
