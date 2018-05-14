@@ -1,4 +1,23 @@
 module.exports = {
+    crawl_sites: {
+        id: {type: 'string', maxlength: 24, nullable: false, primary: true},
+        res_url: {type: 'string', maxlength: 2000, nullable: false},
+        status: {type: 'string', maxlength: 24, nullable: false, defaultTo: 'open'},
+        interval: {type: 'string', maxlength: 24, nullable: false, defaultTo: '60'},
+        query_rule: {type: 'string', maxlength: 2000, nullable: true},
+        created_at: {type: 'dateTime', nullable: false},
+        updated_at: {type: 'dateTime', nullable: true}
+    },
+    crawls_links: {
+        id: {type: 'string', maxlength: 24, nullable: false, primary: true},
+        crawl_from: {type: 'string', maxlength: 24, nullable: false, primary: true},
+        status: {type: 'string', maxlength: 24, nullable: false, defaultTo: 'pending'},
+        post_id: {type: 'string', maxlength: 24, nullable: true},
+        query_rule: {type: 'string', maxlength: 2000, nullable: true},
+        created_at: {type: 'dateTime', nullable: false},
+        updated_at: {type: 'dateTime', nullable: true},
+        sort_order: {type: 'integer', nullable: false, unsigned: true, defaultTo: 0}
+    },
     posts: {
         id: {type: 'string', maxlength: 24, nullable: false, primary: true},
         uuid: {type: 'string', maxlength: 36, nullable: false, validations: {isUUID: true}},

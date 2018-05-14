@@ -362,7 +362,7 @@ describe('Unit: models/user', function () {
             return models.User.findOne({slug: 'joe-bloggs'})
                 .then(function (user) {
                     user.get('slug').should.eql('joe-bloggs');
-                    user.get('profile_image').should.eql('https://example.com/super_photo.jpg');
+                    user.get('profile_image').should.eql('https://casper.ghost.org/v1.0.0/images/writing.jpg');
                     user.set('profile_image', '');
                     user.set('bio', '');
                     return user.save();

@@ -350,7 +350,7 @@ describe('Unit: models/post', function () {
             return models.Post.findOne({slug: 'html-ipsum'})
                 .then(function (post) {
                     post.get('slug').should.eql('html-ipsum');
-                    post.get('feature_image').should.eql('https://example.com/super_photo.jpg');
+                    post.get('feature_image').should.eql('https://casper.ghost.org/v1.0.0/images/writing.jpg');
                     post.set('feature_image', '');
                     post.set('custom_excerpt', '');
                     return post.save();

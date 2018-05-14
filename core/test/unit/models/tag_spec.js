@@ -29,7 +29,7 @@ describe('Unit: models/tags', function () {
             return models.Tag.findOne({slug: 'kitchen-sink'})
                 .then(function (tag) {
                     tag.get('slug').should.eql('kitchen-sink');
-                    tag.get('feature_image').should.eql('https://example.com/super_photo.jpg');
+                    tag.get('feature_image').should.eql('https://casper.ghost.org/v1.0.0/images/writing.jpg');
                     tag.set('feature_image', '');
                     tag.set('description', '');
                     return tag.save();
