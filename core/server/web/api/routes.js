@@ -43,10 +43,10 @@ module.exports = function apiRoutes() {
     apiRouter.del('/posts/:id', mw.authenticatePrivate, api.http(api.posts.destroy));
 
     // ## CrawlSites
-    apiRouter.get('/crawls', /* mw.authenticatePrivate, */ api.http(api.crawlsites.browse));
-    apiRouter.get('/crawls/:id', mw.authenticatePublic, api.http(api.crawlsites.read));
-    apiRouter.post('/crawls', mw.authenticatePrivate, api.http(api.crawlsites.add));
-    apiRouter.put('/crawls', mw.authenticatePrivate, api.http(api.crawlsites.edit));
+    apiRouter.get('/crawlSites', /* mw.authenticatePrivate, */ api.http(api.crawlsites.browse));
+    apiRouter.get('/crawlSites/:id', mw.authenticatePublic, api.http(api.crawlsites.read));
+    apiRouter.post('/crawlSites', mw.authenticatePrivate, api.http(api.crawlsites.add));
+    apiRouter.put('/crawlSites', mw.authenticatePrivate, api.http(api.crawlsites.edit));
 
     // ## Schedules
     apiRouter.put('/schedules/posts/:id', [
