@@ -34,7 +34,7 @@ module.exports = function apiRoutes() {
     apiRouter.get('/configuration/:key', mw.authenticatePrivate, api.http(api.configuration.read));
 
     // ## Posts
-    apiRouter.get('/posts', /* mw.authenticatePublic, */ api.http(api.posts.browse));
+    apiRouter.get('/posts', mw.authenticatePublic, api.http(api.posts.browse));
 
     apiRouter.post('/posts', mw.authenticatePrivate, api.http(api.posts.add));
     apiRouter.get('/posts/:id', mw.authenticatePublic, api.http(api.posts.read));
