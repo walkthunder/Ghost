@@ -10,7 +10,7 @@ module.exports = {
     },
     crawls_links: {
         id: {type: 'string', maxlength: 24, nullable: false, primary: true},
-        crawl_from: {type: 'string', maxlength: 24, nullable: false, primary: true},
+        crawl_from: {type: 'string', maxlength: 24, nullable: false},
         status: {type: 'string', maxlength: 24, nullable: false, defaultTo: 'pending'},
         post_id: {type: 'string', maxlength: 24, nullable: true},
         query_rule: {type: 'string', maxlength: 2000, nullable: true},
