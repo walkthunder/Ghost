@@ -45,6 +45,7 @@ module.exports = function apiRoutes() {
     // ## CrawlSites
     apiRouter.get('/crawlSites', /* mw.authenticatePrivate, */ api.http(api.crawlsites.browse));
     apiRouter.get('/crawlSites/:id', mw.authenticatePublic, api.http(api.crawlsites.read));
+    apiRouter.put('/crawlSites/:id', mw.authenticatePublic, api.http(api.crawlsites.edit));
     apiRouter.post('/crawlSites', mw.authenticatePrivate, api.http(api.crawlsites.add));
     apiRouter.put('/crawlSites', mw.authenticatePrivate, api.http(api.crawlsites.edit));
 

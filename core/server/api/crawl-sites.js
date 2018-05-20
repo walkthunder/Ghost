@@ -6,7 +6,7 @@ const Promise = require('bluebird'),
     localUtils = require('./utils'),
     models = require('../models'),
     common = require('../lib/common'),
-    docName = 'crawl_sites',
+    docName = 'crawl-sites',
 
     allowedIncludes = [
         'res_url', 'query_rule', 'interval', 'status', 'created_at', 'updated_at'
@@ -116,9 +116,7 @@ crawlSites = {
      * @return {Promise(CrawlSite)} Edited CrawlSite
      */
     edit: function edit(object, options) {
-        var tasks,
-            // NOTE: the scheduler API uses the post API and forwards custom options
-            extraAllowedOptions = options.opts || [];
+        var tasks;
 
         /**
          * ### Model Query
@@ -127,7 +125,7 @@ crawlSites = {
          * @returns {Object} options
          */
         function modelQuery(options) {
-            return models.CrawlSite.edit(options.data.crawlsites[0], _.omit(options, ['data']))
+            return models.CrawlSite.edit(options.data['crawl-sites'][0], _.omit(options, ['data']))
                 .then(function onModelResponse(model) {
                     if (!model) {
                         return Promise.reject(new common.errors.NotFoundError({
@@ -136,14 +134,6 @@ crawlSites = {
                     }
 
                     var crawlSites = model.toJSON(options);
-
-                    // If previously was not published and now is (or vice versa), signal the change
-                    // @TODO: `statusChanged` get's added for the API headers only. Reconsider this.
-                    crawlSites.statusChanged = false;
-                    if (model.updated('status') !== model.get('status')) {
-                        crawlSites.statusChanged = true;
-                    }
-
                     return {
                         crawlsites: [crawlSites]
                     };
@@ -152,9 +142,9 @@ crawlSites = {
 
         // Push all of our tasks into a `tasks` array in the correct order
         tasks = [
-            localUtils.validate(docName, {opts: localUtils.idDefaultOptions.concat(extraAllowedOptions)}),
+            localUtils.validate(docName, {opts: localUtils.idDefaultOptions}),
             localUtils.convertOptions(allowedIncludes),
-            localUtils.handlePermissions(docName, 'edit', unsafeAttrs),
+            localUtils.handlePermissions(docName, 'edit'),
             modelQuery
         ];
 

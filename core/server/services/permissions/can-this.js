@@ -14,6 +14,7 @@ CanThisResult = function () {
 
 CanThisResult.prototype.buildObjectTypeHandlers = function (objTypes, actType, context, permissionLoad) {
     var objectTypeModelMap = {
+        crawlSite: models.CrawlSite,
         post: models.Post,
         role: models.Role,
         user: models.User,
