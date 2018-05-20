@@ -47,7 +47,6 @@ module.exports = function apiRoutes() {
     apiRouter.get('/crawlSites/:id', mw.authenticatePublic, api.http(api.crawlsites.read));
     apiRouter.put('/crawlSites/:id', mw.authenticatePublic, api.http(api.crawlsites.edit));
     apiRouter.post('/crawlSites', mw.authenticatePrivate, api.http(api.crawlsites.add));
-    apiRouter.put('/crawlSites', mw.authenticatePrivate, api.http(api.crawlsites.edit));
 
     // ## Schedules
     apiRouter.put('/schedules/posts/:id', [

@@ -8,7 +8,7 @@ module.exports = {
         created_at: {type: 'dateTime', nullable: false},
         updated_at: {type: 'dateTime', nullable: true}
     },
-    crawls_links: {
+    crawl_links: {
         id: {type: 'string', maxlength: 24, nullable: false, primary: true},
         crawl_from: {type: 'string', maxlength: 24, nullable: false},
         status: {type: 'string', maxlength: 24, nullable: false, defaultTo: 'pending'},

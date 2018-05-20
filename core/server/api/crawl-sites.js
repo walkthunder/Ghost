@@ -171,8 +171,9 @@ crawlSites = {
          * @returns {Object} options
          */
         function modelQuery(options) {
-            return models.CrawlSite.add(options.data.crawlsites[0], _.omit(options, ['data']))
+            return models.CrawlSite.add(options.data['crawl-sites'][0], _.omit(options, ['data']))
                 .then(function onModelResponse(model) {
+                    console.debug('---save resp---', model);
                     var crawlSites = model.toJSON(options);
 
                     return {crawlsites: [crawlSites]};
