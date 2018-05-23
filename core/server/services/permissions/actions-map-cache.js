@@ -34,7 +34,7 @@ module.exports = {
             actionsMap[actionType].push(objectType);
             seenActions[actionType][objectType] = true;
         });
-
+        console.log('---actionsMap', actionsMap);
         return actionsMap;
     },
     empty: function empty() {

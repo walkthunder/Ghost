@@ -332,6 +332,49 @@
                     "name": "Delete webhooks",
                     "action_type": "destroy",
                     "object_type": "webhook"
+                },
+                {
+                    "name": "Read crawlsites",
+                    "action_type": "read",
+                    "object_type": "crawlsite"
+                },
+                {
+                    "name": "Add crawlsites",
+                    "action_type": "add",
+                    "object_type": "crawlsite"
+                },
+                {
+                    "name": "Edit crawlsites",
+                    "action_type": "edit",
+                    "object_type": "crawlsite"
+                },
+                {
+                    "name": "Delete crawlsites",
+                    "action_type": "destroy",
+                    "object_type": "crawlsite"
+                }
+            ]
+        },
+        {
+            "name": "Crawlsite",
+            "entries": [
+                {
+                    "id": 1,
+                    "res_url": "https://blog.sessionstack.com/",
+                    "status": "open",
+                    "interval": 80,
+                    "query_rule": ".graf.graf--h3.graf-after--figure.graf--trailing.graf--title",
+                    "created_at": "2018-05-15 03:16:11",
+                    "updated_at": "2018-05-15 03:16:11"
+                },
+                {
+                    "id": 2,
+                    "res_url": "https://github.com/",
+                    "status": "open",
+                    "interval": 60,
+                    "query_rule": "body",
+                    "created_at": "2018-05-15 03:16:11",
+                    "updated_at": "2018-05-15 03:16:11"
                 }
             ]
         },

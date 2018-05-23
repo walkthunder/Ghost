@@ -21,7 +21,7 @@ models = [
     'app',
     'client-trusted-domain',
     'client',
-    'crawl-site',
+    'crawlsite',
     'permission',
     'post',
     'refreshtoken',

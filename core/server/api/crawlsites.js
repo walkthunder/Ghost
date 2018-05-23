@@ -6,14 +6,14 @@ const Promise = require('bluebird'),
     localUtils = require('./utils'),
     models = require('../models'),
     common = require('../lib/common'),
-    docName = 'crawl-sites',
+    docName = 'crawlsites',
 
     allowedIncludes = [
         'res_url', 'query_rule', 'interval', 'status', 'created_at', 'updated_at'
     ],
     unsafeAttrs = [];
 
-let crawlSites;
+let crawlsites;
 
 /**
  * ### crawlSites API Methods
@@ -21,14 +21,14 @@ let crawlSites;
  * **See:** [API Methods](constants.js.html#api%20methods)
  */
 
-crawlSites = {
+crawlsites = {
     /**
      * ## Browse
-     * Find a paginated set of CrawlSites
+     * Find a paginated set of Crawlsites
      *
      * @public
      * @param {{context, page, limit, status}} options (optional)
-     * @returns {Promise<CrawlSites>} CrawlSites Collection with Meta
+     * @returns {Promise<Crawlsites>} Crawlsites Collection with Meta
      */
     browse: function browse(options) {
         var extraOptions = [],
@@ -44,13 +44,13 @@ crawlSites = {
          * @returns {Object} options
          */
         function modelQuery(options) {
-            return models.CrawlSite.findPage(options);
+            return models.Crawlsite.findPage(options);
         }
 
         // Push all of our tasks into a `tasks` array in the correct order
         tasks = [
             localUtils.validate(docName, {opts: permittedOptions}),
-            localUtils.convertOptions(allowedIncludes, models.CrawlSite.allowedFormats),
+            localUtils.convertOptions(allowedIncludes, models.Crawlsite.allowedFormats),
             localUtils.handlePublicPermissions(docName, 'browse', unsafeAttrs),
             modelQuery
         ];
@@ -61,11 +61,11 @@ crawlSites = {
 
     /**
      * ## Read
-     * Find a CrawlSite, by ID, status, or res_url
+     * Find a Crawlsite, by ID, status, or res_url
      *
      * @public
      * @param {Object} options
-     * @return {Promise<CrawlSites>} CrawlSites
+     * @return {Promise<Crawlsite>} Crawlsites
      */
     read: function read(options) {
         var attrs = ['id', 'res_url', 'status'],
@@ -80,7 +80,7 @@ crawlSites = {
          * @returns {Object} options
          */
         function modelQuery(options) {
-            return models.CrawlSite.findOne(options.data, _.omit(options, ['data']))
+            return models.Crawlsite.findOne(options.data, _.omit(options, ['data']))
                 .then(function onModelResponse(model) {
                     if (!model) {
                         return Promise.reject(new common.errors.NotFoundError({
@@ -97,7 +97,7 @@ crawlSites = {
         // Push all of our tasks into a `tasks` array in the correct order
         tasks = [
             localUtils.validate(docName, {attrs: attrs, opts: extraAllowedOptions}),
-            localUtils.convertOptions(allowedIncludes, models.CrawlSite.allowedFormats),
+            localUtils.convertOptions(allowedIncludes, models.Crawlsite.allowedFormats),
             localUtils.handlePublicPermissions(docName, 'read', unsafeAttrs),
             modelQuery
         ];
@@ -108,12 +108,12 @@ crawlSites = {
 
     /**
      * ## Edit
-     * Update properties of a CrawlSite
+     * Update properties of a Crawlsite
      *
      * @public
-     * @param {CrawlSite} object CrawlSite or specific properties to update
+     * @param {Crawlsite} object Crawlsite or specific properties to update
      * @param {{id (required), context, include,...}} options
-     * @return {Promise(CrawlSite)} Edited CrawlSite
+     * @return {Promise(Crawlsite)} Edited Crawlsite
      */
     edit: function edit(object, options) {
         var tasks;
@@ -125,7 +125,7 @@ crawlSites = {
          * @returns {Object} options
          */
         function modelQuery(options) {
-            return models.CrawlSite.edit(options.data['crawl-sites'][0], _.omit(options, ['data']))
+            return models.Crawlsite.edit(options.data['crawlsites'][0], _.omit(options, ['data']))
                 .then(function onModelResponse(model) {
                     if (!model) {
                         return Promise.reject(new common.errors.NotFoundError({
@@ -133,9 +133,8 @@ crawlSites = {
                         }));
                     }
 
-                    var crawlSites = model.toJSON(options);
                     return {
-                        crawlsites: [crawlSites]
+                        crawlsites: [model.toJSON(options)]
                     };
                 });
         }
@@ -154,16 +153,16 @@ crawlSites = {
 
     /**
      * ## Add
-     * Create a new CrawlSite along with any tags
+     * Create a new Crawlsite along with any tags
      *
      * @public
-     * @param {CrawlSites} object
+     * @param {Crawlsites} object
      * @param {{context, include,...}} options
-     * @return {Promise(CrawlSite)} Created CrawlSite
+     * @return {Promise(Crawlsite)} Created Crawlsite
      */
     add: function add(object, options) {
         var tasks;
-
+        console.log('----cs----add', object);
         /**
          * ### Model Query
          * Make the call to the Model layer
@@ -171,12 +170,12 @@ crawlSites = {
          * @returns {Object} options
          */
         function modelQuery(options) {
-            return models.CrawlSite.add(options.data['crawl-sites'][0], _.omit(options, ['data']))
+            console.log('----modelQuery----options', options);
+            return models.Crawlsite.add(options.data['crawlsites'][0], _.omit(options, ['data']))
                 .then(function onModelResponse(model) {
                     console.debug('---save resp---', model);
-                    var crawlSites = model.toJSON(options);
 
-                    return {crawlsites: [crawlSites]};
+                    return {crawlsites: [model.toJSON(options)]};
                 });
         }
 
@@ -205,14 +204,14 @@ crawlSites = {
         var tasks;
 
         /**
-         * @function deleteCrawlSite
+         * @function deleteCrawlsite
          * @param  {Object} options
          */
-        function deleteCrawlSite(options) {
+        function deleteCrawlsite(options) {
             const opts = _.defaults({require: true}, options);
 
-            return models.CrawlSite.destroy(opts).return(null)
-                .catch(models.CrawlSite.NotFoundError, function () {
+            return models.Crawlsite.destroy(opts).return(null)
+                .catch(models.Crawlsite.NotFoundError, function () {
                     throw new common.errors.NotFoundError({
                         message: common.i18n.t('errors.api.posts.postNotFound')
                     });
@@ -224,7 +223,7 @@ crawlSites = {
             localUtils.validate(docName, {opts: localUtils.idDefaultOptions}),
             localUtils.convertOptions(allowedIncludes),
             localUtils.handlePermissions(docName, 'destroy', unsafeAttrs),
-            deleteCrawlSite
+            deleteCrawlsite
         ];
 
         // Pipeline calls each task passing the result of one to be the arguments for the next
@@ -232,4 +231,4 @@ crawlSites = {
     }
 };
 
-module.exports = crawlSites;
+module.exports = crawlsites;

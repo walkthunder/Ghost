@@ -23,12 +23,14 @@ CanThisResult.prototype.buildObjectTypeHandlers = function (objTypes, actType, c
         subscriber: models.Subscriber,
         invite: models.Invite
     };
-
     // Iterate through the object types, i.e. ['post', 'tag', 'user']
     return _.reduce(objTypes, function (objTypeHandlers, objType) {
+        if (objType === 'crawlSite') {
+            console.log('-objectTypeModelMap-', actType, context, permissionLoad);
+        }
+
         // Grab the TargetModel through the objectTypeModelMap
         var TargetModel = objectTypeModelMap[objType];
-
         // Create the 'handler' for the object type;
         // the '.post()' in canThis(user).edit.post()
         objTypeHandlers[objType] = function (modelOrId, unsafeAttrs) {
@@ -96,6 +98,9 @@ CanThisResult.prototype.buildObjectTypeHandlers = function (objTypes, actType, c
                     );
                 }
 
+                if (objType === 'crawlSite') {
+                    console.log('-hasUserPermission && hasAppPermission-', hasUserPermission, hasAppPermission);
+                }
                 if (hasUserPermission && hasAppPermission) {
                     return;
                 }

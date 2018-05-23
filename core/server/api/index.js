@@ -29,7 +29,7 @@ var _ = require('lodash'),
     exporter = require('../data/export'),
     slack = require('./slack'),
     webhooks = require('./webhooks'),
-    crawlSites = require('./crawl-sites'),
+    crawlsites = require('./crawlsites'),
 
     http,
     addHeaders,
@@ -319,7 +319,7 @@ module.exports = {
     invites: invites,
     redirects: redirects,
     webhooks: webhooks,
-    crawlsites: crawlSites
+    crawlsites: crawlsites
 };
 
 /**

@@ -1,11 +1,11 @@
 // # Post Model
 var ghostBookshelf = require('./base'),
-    CrawlSite,
-    CrawlSites;
+    Crawlsite,
+    Crawlsites;
 
-CrawlSite = ghostBookshelf.Model.extend({
+Crawlsite = ghostBookshelf.Model.extend({
 
-    tableName: 'crawl_sites',
+    tableName: 'crawlsites',
 
     /**
      * ## NOTE:
@@ -30,11 +30,11 @@ CrawlSite = ghostBookshelf.Model.extend({
     }
 });
 
-CrawlSites = ghostBookshelf.Collection.extend({
-    model: CrawlSite
+Crawlsites = ghostBookshelf.Collection.extend({
+    model: Crawlsite
 });
 
 module.exports = {
-    CrawlSite: ghostBookshelf.model('CrawlSite', CrawlSite),
-    CrawlSites: ghostBookshelf.collection('CrawlSites', CrawlSites)
+    Crawlsite: ghostBookshelf.model('Crawlsite', Crawlsite),
+    Crawlsites: ghostBookshelf.collection('Crawlsites', Crawlsites)
 };

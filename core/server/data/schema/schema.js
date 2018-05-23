@@ -1,5 +1,5 @@
 module.exports = {
-    crawl_sites: {
+    crawlsites: {
         id: {type: 'string', maxlength: 24, nullable: false, primary: true},
         res_url: {type: 'string', maxlength: 2000, nullable: false},
         status: {type: 'string', maxlength: 24, nullable: false, defaultTo: 'open'},

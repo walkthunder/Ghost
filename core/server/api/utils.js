@@ -197,6 +197,7 @@ utils = {
      * @returns {Function}
      */
     handlePermissions: function handlePermissions(docName, method, unsafeAttrNames) {
+        console.log('==', docName, method, unsafeAttrNames);
         var singular = docName.replace(/s$/, '');
 
         /**
@@ -206,6 +207,7 @@ utils = {
          * @returns {Object} options
          */
         return function doHandlePermissions(options) {
+            console.log('---permissions.canTHis----', options.data[docName][0]);
             var unsafeAttrObject = unsafeAttrNames && _.has(options, 'data.[' + docName + '][0]') ? _.pick(options.data[docName][0], unsafeAttrNames) : {},
                 permsPromise = permissions.canThis(options.context)[method][singular](options.id, unsafeAttrObject);
 
