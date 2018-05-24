@@ -90,7 +90,6 @@ function createPost(overrides) {
         return models.Post.add(postData)
             .then(function onModelResponse(model) {
                 var post = model.toJSON();
-                console.log('------model resp------', model);
                 return {posts: [post]};
             });
     });

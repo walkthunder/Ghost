@@ -101,7 +101,6 @@ urlRedirects = function urlRedirects(req, res, next) {
             queryParameters: req.query,
             secure: req.secure
         });
-    console.log('---urlRedirects---', redirectUrl);
 
     if (redirectUrl) {
         debug('url redirect to: ' + redirectUrl);

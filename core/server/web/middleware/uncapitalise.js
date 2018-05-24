@@ -22,7 +22,6 @@ uncapitalise = function uncapitalise(req, res, next) {
         isSignupOrReset = pathToTest.match(/^(.*\/ghost\/(signup|reset)\/)/i),
         isAPI = pathToTest.match(/^(.*\/ghost\/api\/v[\d\.]+\/.*?\/)/i),
         redirectPath, decodedURI;
-    console.log('----un capitalise----');
     if (isSignupOrReset) {
         pathToTest = isSignupOrReset[1];
     }
@@ -40,7 +39,6 @@ uncapitalise = function uncapitalise(req, res, next) {
             err: err
         }));
     }
-    console.log('----un capitalise----', decodedURI);
 
     /**
      * In node < 0.11.1 req.path is not encoded, afterwards, it is always encoded such that | becomes %7C etc.
@@ -48,11 +46,8 @@ uncapitalise = function uncapitalise(req, res, next) {
      */
     if (/[A-Z]/.test(decodedURI)) {
         redirectPath = (localUtils.removeOpenRedirectFromUrl((req.originalUrl || req.url).replace(pathToTest, pathToTest.toLowerCase())));
-        console.log('----un capitalise----', redirectPath);
-
         return urlService.utils.redirect301(res, redirectPath);
     }
-    console.log('----un capitalise----');
 
     next();
 };

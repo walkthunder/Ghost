@@ -162,7 +162,6 @@ crawlsites = {
      */
     add: function add(object, options) {
         var tasks;
-        console.log('----cs----add', object);
         /**
          * ### Model Query
          * Make the call to the Model layer
@@ -170,11 +169,8 @@ crawlsites = {
          * @returns {Object} options
          */
         function modelQuery(options) {
-            console.log('----modelQuery----options', options);
             return models.Crawlsite.add(options.data['crawlsites'][0], _.omit(options, ['data']))
                 .then(function onModelResponse(model) {
-                    console.debug('---save resp---', model);
-
                     return {crawlsites: [model.toJSON(options)]};
                 });
         }
