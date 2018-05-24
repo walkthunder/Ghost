@@ -352,6 +352,36 @@
                     "name": "Delete crawlsites",
                     "action_type": "destroy",
                     "object_type": "crawlsite"
+                },
+                {
+                    "name": "Browse crawlsites",
+                    "action_type": "browse",
+                    "object_type": "crawlsite"
+                },
+                {
+                    "name": "Read crawllinks",
+                    "action_type": "read",
+                    "object_type": "crawllink"
+                },
+                {
+                    "name": "Add crawllinks",
+                    "action_type": "add",
+                    "object_type": "crawllink"
+                },
+                {
+                    "name": "Edit crawllinks",
+                    "action_type": "edit",
+                    "object_type": "crawllink"
+                },
+                {
+                    "name": "Delete crawllinks",
+                    "action_type": "destroy",
+                    "object_type": "crawllink"
+                },
+                {
+                    "name": "Browse crawllinks",
+                    "action_type": "browse",
+                    "object_type": "crawllink"
                 }
             ]
         },
@@ -359,7 +389,6 @@
             "name": "Crawlsite",
             "entries": [
                 {
-                    "id": 1,
                     "res_url": "https://blog.sessionstack.com/",
                     "status": "open",
                     "interval": 80,
@@ -368,10 +397,28 @@
                     "updated_at": "2018-05-15 03:16:11"
                 },
                 {
-                    "id": 2,
                     "res_url": "https://github.com/",
                     "status": "open",
                     "interval": 60,
+                    "query_rule": "body",
+                    "created_at": "2018-05-15 03:16:11",
+                    "updated_at": "2018-05-15 03:16:11"
+                }
+            ]
+        },
+        {
+            "name": "Crawllink",
+            "entries": [
+                {
+                    "crawlsite_id": "423423",
+                    "status": "pending",
+                    "query_rule": ".graf.graf--h3.graf-after--figure.graf--trailing.graf--title",
+                    "created_at": "2018-05-15 03:16:11",
+                    "updated_at": "2018-05-15 03:16:11"
+                },
+                {
+                    "crawlsite_id": "5345234",
+                    "status": "pending",
                     "query_rule": "body",
                     "created_at": "2018-05-15 03:16:11",
                     "updated_at": "2018-05-15 03:16:11"

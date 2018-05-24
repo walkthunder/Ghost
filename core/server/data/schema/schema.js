@@ -8,14 +8,14 @@ module.exports = {
         created_at: {type: 'dateTime', nullable: false},
         updated_at: {type: 'dateTime', nullable: true}
     },
-    crawl_links: {
+    crawllinks: {
         id: {type: 'string', maxlength: 24, nullable: false, primary: true},
-        crawl_from: {type: 'string', maxlength: 24, nullable: false},
-        status: {type: 'string', maxlength: 24, nullable: false, defaultTo: 'pending'},
+        crawlsite_id: {type: 'string', maxlength: 24, nullable: false},
         post_id: {type: 'string', maxlength: 24, nullable: true},
+        status: {type: 'string', maxlength: 24, nullable: false, defaultTo: 'pending'},
         query_rule: {type: 'string', maxlength: 2000, nullable: true},
         created_at: {type: 'dateTime', nullable: false},
-        updated_at: {type: 'dateTime', nullable: true},
+        updated_at: {type: 'dateTime', nullable: false},
         sort_order: {type: 'integer', nullable: false, unsigned: true, defaultTo: 0}
     },
     posts: {

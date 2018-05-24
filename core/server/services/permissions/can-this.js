@@ -14,6 +14,7 @@ CanThisResult = function () {
 
 CanThisResult.prototype.buildObjectTypeHandlers = function (objTypes, actType, context, permissionLoad) {
     var objectTypeModelMap = {
+        crawllink: models.Crawllink,
         crawlSite: models.CrawlSite,
         post: models.Post,
         role: models.Role,
@@ -25,10 +26,6 @@ CanThisResult.prototype.buildObjectTypeHandlers = function (objTypes, actType, c
     };
     // Iterate through the object types, i.e. ['post', 'tag', 'user']
     return _.reduce(objTypes, function (objTypeHandlers, objType) {
-        if (objType === 'crawlSite') {
-            console.log('-objectTypeModelMap-', actType, context, permissionLoad);
-        }
-
         // Grab the TargetModel through the objectTypeModelMap
         var TargetModel = objectTypeModelMap[objType];
         // Create the 'handler' for the object type;
@@ -98,9 +95,6 @@ CanThisResult.prototype.buildObjectTypeHandlers = function (objTypes, actType, c
                     );
                 }
 
-                if (objType === 'crawlSite') {
-                    console.log('-hasUserPermission && hasAppPermission-', hasUserPermission, hasAppPermission);
-                }
                 if (hasUserPermission && hasAppPermission) {
                     return;
                 }
@@ -155,7 +149,6 @@ CanThisResult.prototype.beginCheck = function (context) {
         // Build up the object type handlers;
         // the '.post()' parts in canThis(user).edit.post()
         var objTypeHandlers = self.buildObjectTypeHandlers(objTypes, actType, context, permissionsLoad);
-
         // Define a property for the action on the result;
         // the '.edit' in canThis(user).edit.post()
         Object.defineProperty(self, actType, {

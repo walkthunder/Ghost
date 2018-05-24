@@ -176,7 +176,6 @@ utils = {
          */
         return function doHandlePublicPermissions(options) {
             var permsPromise;
-
             if (utils.detectPublicContext(options)) {
                 permsPromise = utils.applyPublicPermissions(docName, method, options);
             } else {

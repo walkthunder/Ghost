@@ -1,12 +1,11 @@
 // # Post Model
 var ghostBookshelf = require('./base'),
-    Crawlsite,
-    Crawlsites;
-const {CRAWLSITE_INTERVAL} = require('../config/vars');
+    Crawllink,
+    Crawllinks;
 
-Crawlsite = ghostBookshelf.Model.extend({
+Crawllink = ghostBookshelf.Model.extend({
 
-    tableName: 'crawlsites',
+    tableName: 'crawllinks',
 
     /**
      * ## NOTE:
@@ -19,8 +18,7 @@ Crawlsite = ghostBookshelf.Model.extend({
      */
     defaults: function defaults() {
         return {
-            interval: CRAWLSITE_INTERVAL,
-            status: 'open'
+            status: 'pending'
         };
     }
 }, {
@@ -32,11 +30,11 @@ Crawlsite = ghostBookshelf.Model.extend({
     }
 });
 
-Crawlsites = ghostBookshelf.Collection.extend({
-    model: Crawlsite
+Crawllinks = ghostBookshelf.Collection.extend({
+    model: Crawllink
 });
 
 module.exports = {
-    Crawlsite: ghostBookshelf.model('Crawlsite', Crawlsite),
-    Crawlsites: ghostBookshelf.collection('Crawlsites', Crawlsites)
+    Crawllink: ghostBookshelf.model('Crawllink', Crawllink),
+    Crawllinks: ghostBookshelf.collection('Crawllinks', Crawllinks)
 };
