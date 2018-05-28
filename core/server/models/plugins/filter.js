@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-    gql = require('ghost-gql'),
+    gql = require('walkthunder-ghost-gql'),
     common = require('../../lib/common'),
     filter,
     filterUtils;
@@ -211,7 +211,6 @@ filter = function filter(Bookshelf) {
                 }
 
                 this.preProcessFilters(options);
-
                 this.query(function (qb) {
                     gql.knexify(qb, self._filters);
                 });
