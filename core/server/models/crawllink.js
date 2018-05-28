@@ -26,7 +26,7 @@ Crawllink = ghostBookshelf.Model.extend({
         return {};
     },
     processOptions: function processOptions(options) {
-        if (!options.status) {
+        if (!options.status && !options.crawlsiteId) {
             return options;
         }
 
@@ -44,6 +44,10 @@ Crawllink = ghostBookshelf.Model.extend({
             delete options.status;
         }
 
+        if (options.crawlsiteId) {
+            options.where.statements.push({prop: 'crawlsite_id', op: '=', value: options.crawlsiteId});
+        }
+
         return options;
     },
     /**
@@ -58,7 +62,7 @@ Crawllink = ghostBookshelf.Model.extend({
             // these are the only options that can be passed to Bookshelf / Knex.
             validOptions = {
                 findOne: ['columns', 'importing', 'withRelated', 'require'],
-                findPage: ['status'],
+                findPage: ['status', 'crawlsiteId'],
                 findAll: ['columns', 'filter']
             };
 
