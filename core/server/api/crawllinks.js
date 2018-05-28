@@ -31,7 +31,7 @@ crawllinks = {
      * @returns {Promise<Crawllinks>} Crawllinks Collection with Meta
      */
     browse: function browse(options) {
-        var extraOptions = ['status', 'crawlsiteId'],
+        var extraOptions = ['status', 'crawlsiteId', 'postId'],
             permittedOptions,
             tasks;
 
