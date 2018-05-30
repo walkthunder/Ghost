@@ -46,7 +46,6 @@ crawlsites = {
         function modelQuery(options) {
             return models.Crawlsite.findPage(options);
         }
-
         // Push all of our tasks into a `tasks` array in the correct order
         tasks = [
             localUtils.validate(docName, {opts: permittedOptions}),
@@ -125,7 +124,7 @@ crawlsites = {
          * @returns {Object} options
          */
         function modelQuery(options) {
-            return models.Crawlsite.edit(options.data['crawlsites'][0], _.omit(options, ['data']))
+            return models.Crawlsite.edit(options.data.crawlsites[0], _.omit(options, ['data']))
                 .then(function onModelResponse(model) {
                     if (!model) {
                         return Promise.reject(new common.errors.NotFoundError({
