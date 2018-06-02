@@ -315,6 +315,9 @@
             "configuration": {
                 "invalidKey": "Invalid key"
             },
+            "crawlsites": {
+                "crawlsiteNotFound": "Crawlsites not found."
+            },
             "db": {
                 "missingFile": "Please select a database file to import.",
                 "invalidFile": "Unsupported file. Please try any of the following formats: {extensions}",

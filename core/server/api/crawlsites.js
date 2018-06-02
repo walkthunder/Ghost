@@ -83,12 +83,18 @@ crawlsites = {
                 .then(function onModelResponse(model) {
                     if (!model) {
                         return Promise.reject(new common.errors.NotFoundError({
-                            message: common.i18n.t('errors.api.posts.postNotFound')
+                            message: common.i18n.t('errors.api.crawlsites.crawlsiteNotFound')
                         }));
                     }
 
                     return {
                         crawlsites: [model.toJSON(options)]
+                    };
+                })
+                .catch((err) => {
+                    return {
+                        error: err,
+                        crawlSites: []
                     };
                 });
         }

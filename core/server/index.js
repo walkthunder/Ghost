@@ -27,6 +27,8 @@ var debug = require('ghost-ignition').debug('boot:init'),
     themes = require('./services/themes'),
     urlService = require('./services/url'),
 
+    cronJob = require('./adapters/scheduling/crawler'),
+
     // Services that need initialisation
     apps = require('./services/apps'),
     xmlrpc = require('./services/xmlrpc'),
@@ -110,6 +112,7 @@ function init() {
     }).then(function () {
         debug('Scheduling done');
         debug('...Init End');
+        cronJob.init();
         return ghostServer;
     });
 }
