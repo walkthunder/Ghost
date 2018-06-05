@@ -8,6 +8,7 @@ module.exports = function (log) {
     }
     const url = log.res_url;
     const query = log.query_rule;
+    const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
     let brow;
     return puppeteer.launch()
         .then(insta => {
@@ -15,22 +16,25 @@ module.exports = function (log) {
             return brow.newPage();
         })
         .then(page => {
-            return page.goto(url)
+            return page.setUserAgent(UA)
+                .then(() => {
+                    return page.goto(url)
+                })
                 .then((resp) => {
-                    debug('page - ', resp);
                     return auth(page).then(() => {
-                        return page.pdf({path: './page.001.pdf',  format: 'A4'})
+                        return page.pdf({path: `./page.${url}.pdf`,  format: 'A4'})
                     })
                 })
-                .then(() => {
-                    return page.$$(query)
-                })
-                .then((list) => {
-                    debug('---list---', list && list.length);
-                    return list;
+                .then((res) => {
+                    return page.evaluate((sel) => {
+                        return [...(document.querySelectorAll(sel) || [])].map(item => {
+                            return item.href;
+                        })
+                    }, query)
                 })
         })
         .then((res) => {
+            console.log('final res - ', res)
             brow.close();
             return res;
         });

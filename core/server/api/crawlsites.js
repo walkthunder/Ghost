@@ -9,7 +9,7 @@ const Promise = require('bluebird'),
     docName = 'crawlsites',
 
     allowedIncludes = [
-        'res_url', 'query_rule', 'interval', 'status', 'created_at', 'updated_at'
+        'res_url', 'query_rule', 'sub_query_rule', 'interval', 'status', 'created_at', 'updated_at'
     ],
     unsafeAttrs = [];
 

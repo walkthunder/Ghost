@@ -1,5 +1,6 @@
 // # Post Model
-var ghostBookshelf = require('./base'),
+var _ = require('lodash'),
+    ghostBookshelf = require('./base'),
     Crawllink,
     Crawllinks;
 
@@ -20,6 +21,9 @@ Crawllink = ghostBookshelf.Model.extend({
         return {
             status: 'pending'
         };
+    },
+    crawlsiteId: function crawlsiteId() {
+        return this.belongsTo('Crawlsite', 'crawlsiteId');
     }
 }, {
     orderDefaultOptions: function orderDefaultOptions() {
@@ -51,8 +55,29 @@ Crawllink = ghostBookshelf.Model.extend({
         if (options.postId) {
             options.where.statements.push({prop: 'post_id', op: '=', value: options.postId});
         }
+        if (options.page) {
+            options.where.statements.push({prop: 'page', op: '=', value: options.page});
+        }
+        if (options.uri) {
+            options.where.statements.push({prop: 'uri', op: '=', value: options.uri})
+        }
 
         return options;
+    },
+    /**
+     * ### Find One
+     * @extends ghostBookshelf.Model.findOne to handle post status
+     * **See:** [ghostBookshelf.Model.findOne](base.js.html#Find%20One)
+     */
+    findOne: function findOne(data, options) {
+        data = _.defaults(data || {}, {
+            status: 'all'
+        });
+
+        if (data.status === 'all') {
+            delete data.status;
+        }
+        return ghostBookshelf.Model.findOne.call(this, data, options);
     },
     /**
      * Returns an array of keys permitted in a method's `options` hash, depending on the current method.
@@ -65,8 +90,8 @@ Crawllink = ghostBookshelf.Model.extend({
             // whitelists for the `options` hash argument on methods, by method name.
             // these are the only options that can be passed to Bookshelf / Knex.
             validOptions = {
-                findOne: ['columns', 'importing', 'withRelated', 'require'],
-                findPage: ['status', 'crawlsiteId', 'postId'],
+                findOne: ['crawlsiteId', 'uri', 'status', 'postId', 'limit', 'columns'],
+                findPage: ['page', 'limit', 'status', 'crawlsiteId', 'postId'],
                 findAll: ['columns', 'filter']
             };
 

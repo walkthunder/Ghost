@@ -9,7 +9,7 @@ const Promise = require('bluebird'),
     docName = 'crawllinks',
 
     allowedIncludes = [
-        'crawlsite_id', 'post_id', 'query_rule', 'status', 'created_at', 'updated_at'
+        'uri', 'crawlsite_id', 'post_id', 'query_rule', 'status', 'created_at', 'updated_at'
     ],
     unsafeAttrs = [];
 
@@ -44,6 +44,7 @@ crawllinks = {
          * @returns {Object} options
          */
         function modelQuery(options) {
+            console.log('-opt-', options);
             return models.Crawllink.findPage(options);
         }
 
@@ -68,9 +69,9 @@ crawllinks = {
      * @return {Promise<Crawllink>} Crawllinks
      */
     read: function read(options) {
-        var attrs = ['id', 'res_url', 'status'],
+        var attrs = ['id', 'postId', 'status', 'uri', 'crawlsiteId'],
             // NOTE: the scheduler API uses the post API and forwards custom options
-            extraAllowedOptions = options.opts || ['formats'],
+            extraAllowedOptions = [],
             tasks;
 
         /**

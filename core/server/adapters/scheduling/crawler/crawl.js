@@ -19,11 +19,13 @@ const updateLog = function (options) {
 const crawl = function (log) {
     debug('crawl log - ', log);
     return puppeter(log)
-        .then((res) => {
-            debug('[puppeter] resp' - res && res.length);
-            return [];
-        });
 };
+
+const formatCL = function (cl) {
+    return cl ? {
+        crawllinks: [cl]
+    } : null
+}
 
 module.exports = {
     siteCrawler: function () {
@@ -37,15 +39,66 @@ module.exports = {
                     return Promise.reject(new Error('Load log failed'));
                 }
                 workingLog = resp.crawlsites[0];
-                return crawl(workingLog);
+                return crawl(workingLog)
+                    .then(res => {
+                        console.log('crawl result - ', res);
+                        if (res) {
+                            return res.map(link => {
+                                if (link) {
+                                    return {
+                                        crawlsite_id: workingLog.id,
+                                        query_rule: workingLog.sub,
+                                        status: 'pending',
+                                        uri: link
+                                    }
+                                }
+                            })
+                        }
+                    });
             })
             .then((cls) => {
+                const context = {
+                    context: {
+                        user: '1'
+                    }
+                };
                 let addPromises = cls.map((cl) => {
-                    return crawllinkAPI.add(cl)
-                        .then((resp) => {
-                            debug('added crawllink resp - ', resp);
-                            return resp;
-                        });
+                    if (cl) {
+                        cl = formatCL(cl)
+                    }
+                    if (!cl) {
+                        return Promise.resolve();
+                    }
+                    const fromID = cl.crawllinks[0].crawlsite_id
+                    const uri = cl.crawllinks[0].uri
+
+                    return crawllinkAPI.read({
+                        crawlsiteId: fromID,
+                        uri
+                    })
+                        .then(item => {
+                            if (item && item.crawllinks && item.crawllinks[0]) {
+                                debug('crawllink item exists', item.crawllinks[0])
+                                return Promise.resolve()
+                            } else {
+                                return crawllinkAPI.add(cl, context)
+                                    .then((resp) => {
+                                        debug('added crawllink resp - ', resp);
+                                        return resp;
+                                    });
+                            }
+                        })
+                        .catch(err => {
+                            debug('read error - ', err)
+                            if (err && (err.statusCode === 404)) {
+                                return crawllinkAPI.add(cl, context)
+                                    .then((resp) => {
+                                        debug('added crawllink resp - ', resp);
+                                        return resp;
+                                    });
+                            }
+                            return Promise.reject(err)
+                        })
                 });
                 return Promise.all(addPromises)
                     .then((allAdded) => {

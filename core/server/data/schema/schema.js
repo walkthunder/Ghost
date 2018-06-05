@@ -5,11 +5,13 @@ module.exports = {
         status: {type: 'string', maxlength: 24, nullable: false, defaultTo: 'open'},
         interval: {type: 'string', maxlength: 24, nullable: false, defaultTo: '60'},
         query_rule: {type: 'string', maxlength: 2000, nullable: true},
+        sub_query_rule: {type: 'string', maxlength: 2000, nullable: false, defaultTo: 'body'},
         created_at: {type: 'dateTime', nullable: false},
         updated_at: {type: 'dateTime', nullable: true}
     },
     crawllinks: {
         id: {type: 'string', maxlength: 24, nullable: false, primary: true},
+        uri: {type: 'string', maxlength: 256, nullable: true},
         crawlsite_id: {type: 'string', maxlength: 24, nullable: false},
         post_id: {type: 'string', maxlength: 24, nullable: true},
         status: {type: 'string', maxlength: 24, nullable: false, defaultTo: 'pending'},
